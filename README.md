@@ -84,3 +84,55 @@ Kubernetes deployments, container orchestration, horizontal scaling, self-healin
 
 \- Add CI/CD automation using GitHub Actions.
 
+\## Kubernetes Security (RBAC)
+
+
+
+Implemented Role-Based Access Control (RBAC) to demonstrate the principle of least privilege.
+
+
+
+\### Security Configuration
+
+\- Created an `nginx-viewer` ServiceAccount.
+
+\- Defined a namespace-scoped `pod-reader` Role with get, list, and watch permissions.
+
+\- Created a RoleBinding to associate the ServiceAccount with the Role.
+
+\- Restricted the ServiceAccount from modifying or deleting Pods through this Role.
+
+
+
+\### Security Validation
+
+Tested Kubernetes authorization using `kubectl auth can-i`:
+
+
+
+```powershell
+
+kubectl auth can-i list pods --as=system:serviceaccount:default:nginx-viewer
+
+\# Expected: yes
+
+
+
+kubectl auth can-i delete pods --as=system:serviceaccount:default:nginx-viewer
+
+\# Expected: no
+
+```
+
+
+
+These tests demonstrate namespace-scoped authorization and least-privilege access control.
+
+
+
+\## Health Checks
+
+
+
+Configured HTTP readiness and liveness probes for NGINX to support application availability, health monitoring, and container recovery.
+
